@@ -3,3 +3,8 @@ const loggerUrl = (req, res, next) => {
     console.log(`[${fecha.toLocaleDateString()} ${fecha.toLocaleTimeString()}] ${req.method} ${req.url}`);
     next();
 };
+
+
+export{
+    loggerUrl
+}
