@@ -1,10 +1,9 @@
 {
-  "name": "Fierrito-shop",
+  "name": "fierrito-shop",
   "version": "1.0.0",
   "description": "TP PROGRAMACION",
   "main": "index.js",
   "type": "module",
-
   "scripts": {
     "dev": "node --watch index.js",
     "start": "node  index.js"
