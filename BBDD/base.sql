@@ -18,10 +18,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tp25_autoservicio`
+-- Base de datos: `fierritos-shop`
 --
 
 -- --------------------------------------------------------
+
+CREATE DATABASE IF NOT EXISTS `fierritos-shop`
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+USE `fierritos-shop`;
 
 --
 -- Estructura de tabla para la tabla `products`
