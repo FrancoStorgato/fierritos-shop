@@ -1,10 +1,9 @@
 import productModels from "../models/product.models.js";
-import productModel from "../models/product.models.js";
 
 //Obtenemos todos los productos
 export const getAllProducts = async (req, res) => {
     try {
-        const [rows] = await productModel.seleccionarTodosLosProductos();
+        const [rows] = await productModels.seleccionarTodosLosProductos();
 
         if (rows.length === 0) {
             return res.status(404).json({
@@ -24,7 +23,7 @@ export const getAllProducts = async (req, res) => {
 
 //obtenemos los productos activos
 
-export const  getAllactiveProducts = async (req, res) => {
+const getAllactiveProducts = async (req, res) => {
 
     try{
         const [rows] = await productModels.seleccionarProductosActivos();
@@ -134,4 +133,8 @@ export const removeProduct = async (req, res) => {
             message: "Error interno al modificar productos"
         });
     }
+}
+
+export {
+    getAllactiveProducts
 }

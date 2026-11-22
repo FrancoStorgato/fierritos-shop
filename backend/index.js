@@ -6,6 +6,7 @@ import session from "express-session";
 import environments from "./src/api/config/environments.js";
 import {loggerUrl} from "./src/api/middlewares/middlewares.js";
 import { __dirname, join } from "./src/api/utils/index.js";
+import { productRoutes } from "./src/api/routes/index.js";
 
 const app = express();
 const {port, session_key} = environments;
@@ -34,6 +35,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
+app.use("/api/products" , productRoutes);
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
