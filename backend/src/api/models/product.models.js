@@ -41,7 +41,7 @@ const actualizarProducto = (name, image, category, price, active, id) => {
 
 //Eliminacion de productos por id
 const eliminarProducto = (id) => {
-    const sql = "DELETE FROM products WHRE id = ?";
+    const sql = "DELETE FROM products WHERE id = ?";
 
     return connection.query(sql, [id]);
 }
