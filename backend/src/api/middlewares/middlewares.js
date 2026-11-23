@@ -56,6 +56,55 @@ const validateProduct = (req, res, next) => {
     next(); 
 }
 
+// Valida el body de una venta: { user_name, products: [ { id, quantity } ] }
+const validateSale = (req, res, next) => {
+    const errores = [];
+
+    const { user_name, products } = req.body;
+
+    if (typeof user_name !== "string" || user_name.trim().length < 2) {
+        errores.push("El nombre del cliente debe tener al menos dos caracteres");
+    }
+
+    if (!Array.isArray(products) || products.length === 0) {
+        errores.push("La venta debe tener al menos un producto");
+    } else {
+        products.forEach(item => {
+            if (!Number.isInteger(item.id) || item.id <= 0) {
+                errores.push("Hay un producto con id invalido");
+            }
+
+            if (!Number.isInteger(item.quantity) || item.quantity <= 0) {
+                errores.push("La cantidad debe ser un numero entero mayor a 0");
+            }
+        });
+    }
+
+    if (errores.length > 0) {
+        return res.status(400).json({
+            message: "Datos invalidos",
+            listaErrores: errores
+        });
+    }
+
+    next();
+}
+
+// Valida los datos para crear un usuario admin
+const validateUser = (req, res, next) => {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password || password.length < 6) {
+        return res.status(400).render("createUser", {
+            title: "Crear usuario",
+            about: "Crear usuario admin",
+            error: "Completa todos los campos (la password debe tener al menos 6 caracteres)"
+        });
+    }
+
+    next();
+}
+
 const requireLogin = (req, res, next) => {
     
     if (!req.session.user) {
@@ -70,5 +119,7 @@ export{
     loggerUrl,
     validateId,
     validateProduct,
+    validateSale,
+    validateUser,
     requireLogin
 }
