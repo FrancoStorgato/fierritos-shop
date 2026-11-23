@@ -96,6 +96,9 @@ createProductForm.addEventListener("submit", async event => {
         console.log(mensaje);
         mostrarMensaje("exito", mensaje);
 
+        // Volvemos al dashboard para ver el producto agregado
+        window.location.href = "/dashboard/principal";
+
     } catch (error) {
         
         console.error("Error al obtener productos: ", error);

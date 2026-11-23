@@ -49,20 +49,31 @@ function mostrarListaErrores(array) {
 
 
 
-getProductForm.addEventListener("submit", async (event) => {
+getProductForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-   
-
-    
     const idProd = event.target.idProd.value.trim();
-    console.log(idProd); 
+    console.log(idProd);
 
     if (!idProd) {
         return mostrarError("Ingresa un id valido");
     }
 
+    consultarProducto(idProd, false);
+});
 
+
+// Si venimos desde el boton "Editar" del dashboard (/dashboard/modificar?id=5)
+// cargamos el producto y mostramos el formulario directamente
+const idDesdeUrl = new URLSearchParams(window.location.search).get("id");
+
+if (idDesdeUrl) {
+    document.getElementById("idProd").value = idDesdeUrl;
+    consultarProducto(idDesdeUrl, true);
+}
+
+
+async function consultarProducto(idProd, mostrarFormularioDirecto) {
     try {
         const response = await fetch(`${urlBase}/api/products/${idProd}`);
         console.log(response);
@@ -76,16 +87,20 @@ getProductForm.addEventListener("submit", async (event) => {
             return mostrarMensaje("error", data.message);
         }
 
-        const producto = data.payload[0]; 
+        const producto = data.payload[0];
 
         renderizarProducto(producto);
 
+        if (mostrarFormularioDirecto) {
+            renderizarFormularioPut(producto);
+        }
+
     } catch (error) {
-        
+
         console.error("Error al obtener productos: ", error);
         return mostrarMensaje("error", "Error de conexion con el servidor");
     }
-});
+}
 
 function renderizarProducto(producto) {
     let htmlProducto = `
@@ -131,8 +146,8 @@ function renderizarFormularioPut(producto) {
                 
                 <label for="categoryProd">Categoria</label>
                 <select name="category" id="categoryProd" required>
-                    <option value="auto">auto</option>
-                    <option value="moto">moto</option>
+                    <option value="auto" ${producto.category === "auto" ? "selected" : ""}>Auto</option>
+                    <option value="moto" ${producto.category === "moto" ? "selected" : ""}>Moto</option>
                 </select>
                     
                 <label for="imageProd">Imagen</label>
@@ -146,8 +161,8 @@ function renderizarFormularioPut(producto) {
 
                 <label for="activeProd">Estado</label>
                 <select name="active" id="activeProd" required>
-                    <option value="1" <%= Number(producto.active) === 1 ? "selected" : "" %>>Activo</option>
-                    <option value="0" <%= Number(producto.active) === 0 ? "selected" : "" %>>Inactivo</option>
+                    <option value="1" ${Number(producto.active) === 1 ? "selected" : ""}>Activo</option>
+                    <option value="0" ${Number(producto.active) === 0 ? "selected" : ""}>Inactivo</option>
                 </select>
 
                 <input type="submit" value="Modificar producto">
@@ -204,6 +219,9 @@ function renderizarFormularioPut(producto) {
             contenedorForm.innerHTML = "";
             console.log(data.message);
             mostrarMensaje("exito", data.message);
+
+            // Volvemos al dashboard para ver el producto modificado
+            window.location.href = "/dashboard/principal";
 
 
 

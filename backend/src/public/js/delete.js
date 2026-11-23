@@ -20,7 +20,7 @@ getProductForm.addEventListener("submit", async (event) => {
     console.log(idProd); // Vemos por consola el valor de id extraido del <form> para parsarselo a la url en el fetch
 
     if (!idProd) {
-        return mostrarError("Ingresa un id valido");
+        return mostrarMensaje("error", "Ingresa un id valido");
     }
 
     try {
@@ -58,7 +58,10 @@ function renderizarProducto(producto) {
                         Id: ${producto.id} / Nombre: ${producto.name} / <strong>Precio: $${producto.price}</strong>
                     </li>
                     <li class="li-listados">
-                        <button id="btn-eliminar">Eliminar</button>
+                        Estado: ${Number(producto.active) === 1 ? "Activo" : "Inactivo"}
+                    </li>
+                    <li class="li-listados">
+                        <button id="btn-eliminar">Dar de baja</button>
                     </li>
                 </ul>
             `;
@@ -69,10 +72,10 @@ function renderizarProducto(producto) {
     const btnEliminar = document.getElementById("btn-eliminar");
     btnEliminar.addEventListener("click", () => {
 
-        const confirmacion = confirm("Queres eliminar este producto?");
+        const confirmacion = confirm("Queres dar de baja este producto? (queda inactivo)");
 
         if (!confirmacion) {
-            alert("Eliminacion cancelada");
+            alert("Baja cancelada");
         } else {
             eliminarProducto(producto.id);
         }
