@@ -48,7 +48,7 @@ const getAllactiveProducts = async (req, res) => {
 
 export const getAllProductsByID = async (req, res) => {
     try{
-        const [rows] = await productModels.seleccionarProductosPorID();
+        const [rows] = await productModels.seleccionarProductosPorID(req.id);
         if(rows.length ===0){
             return res.status(404).json({
                 message: "No se encontraron productos" 
@@ -93,11 +93,11 @@ export const modifyProduct = async (req, res) => {
     try{
         const {id, name, image, price, category, active} = req.body;
 
-        const [result] = await productModels.actualizarProducto(id, name, image, price, category, active);
+        const [result] = await productModels.actualizarProducto(name, image, price, category, active, id);
 
         console.log(result);
 
-        if (result.changedRows === 0) {
+        if (result.affectedRows === 0) {
             return res.status(404).json({
                 message: "No se actualizo el producto"
             })

@@ -33,10 +33,10 @@ const agregarNuevoProducto = (name, image, category, price) => {
 
 
 //Actualizacion de productos por id
-const actualizarProducto = (name, image, category, price, active, id) => {
+const actualizarProducto = (name, image,price , category, active, id) => {
     const sql = "UPDATE products SET name = ?, image = ?, price = ?, category = ?, active = ? WHERE id = ?";
 
-    return connection.query(sql,[name, image, category, price, active, id])
+    return connection.query(sql,[name, image, price, category, active, id])
 }
 
 //Eliminacion de productos por id

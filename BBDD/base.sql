@@ -47,16 +47,16 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `image`, `category`, `price`, `active`) VALUES
 
-(1, 'PopRace | Golf GTI Mk2', 'fierritos-shop\backend\src\public\img\gti_mk2_pop_race.png', 'POPRACE', '100000.00', 1),
-(2, 'PopRace | Porsche Targa', 'fierritos-shop\backend\src\public\img\porsche_targa_pop_race.png', 'POPRACE', '150000.00', 1),
-(3, 'PopRace | Nissan Stagea', 'fierritos-shop\backend\src\public\img\nissan_stagea_pop_race.png', 'POPRACE', '250000.00', 1),
-(4, 'PopRace | Honda Civic', 'fierritos-shop\backend\src\public\img\honda_civic_poprace.png', 'POPRACE', '250000.00', 1),
-(5, 'PopRace | Supra', 'fierritos-shop\backend\src\public\img\supra_poprace.png', 'POPRACE', '250000.00', 1),
-(6, 'MiniGt | BMW 750il', 'fierritos-shop\backend\src\public\img\MINIGT BMW_A750il.jpg', 'MINIGT', '150000.00', 1),
-(7, 'MiniGt | Ford Falcon', 'fierritos-shop\backend\src\public\img\MINIGT ford_Falcon_1975.jpg', 'MINIGT', '140000.00', 1),
-(8, 'MiniGt | Subaru Impreza 1998', 'fierritos-shop\backend\src\public\img\MINIGT Subaru_impreza_1998.jpg', 'MINIGT', '250000.00', 1),
-(9, 'MiniGt | Mazda_mx5', 'fierritos-shop\backend\src\public\img\mazda_mx5_miniGT.JPG', 'MINIGT', '140000.00', 1),
-(10, 'MiniGt | Rs6', 'fierritos-shop\backend\src\public\img\rs6_minigt.JPG', 'MINIGT', '250000.00', 1);
+(1, 'Golf GTI Mk2', '/img/gti_mk2_pop_race.png', 'POPRACE', '100000.00', 1),
+(2, 'Porsche Targa', '/img/porsche_targa_pop_race.png', 'POPRACE', '150000.00', 1),
+(3, 'Nissan Stagea', '/img/nissan_stagea_pop_race.png', 'POPRACE', '250000.00', 1),
+(4, 'Honda Civic', '/img/honda_civic_poprace.png', 'POPRACE', '250000.00', 1),
+(5, 'Toyota Supra', '/img/supra_poprace.png', 'POPRACE', '250000.00', 1),
+(6, 'BMW 750il', '/img/minigt_bmw_750il.jpg', 'MINIGT', '150000.00', 1),
+(7, 'Ford Falcon', '/img/minigt_ford_falcon_1975.jpg', 'MINIGT', '140000.00', 1),
+(8, 'Subaru Impreza 1998', '/img/minigt_subaru_impreza_1998.jpg', 'MINIGT', '250000.00', 1),
+(9, 'Mazda MX5', '/img/mazda_mx5_miniGT.JPG', 'MINIGT', '140000.00', 1),
+(10, 'Audi Rs6', '/img/rs6_minigt.JPG', 'MINIGT', '250000.00', 1);
 
 -- --------------------------------------------------------
 
@@ -142,6 +142,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
 (12, 'Florencia Castro', 'flor.castro@outlook.com', 'florPass'),
 (13, 'Diego Alvarez', 'diego.a@gmail.com', 'diego555'),
 (14, 'Agustina Vega', 'agus.vega@hotmail.com', '$2b$10$eImiTXuWVxfM37uY4JANjQ==');
+
+
 
 --
 -- Índices para tablas volcadas

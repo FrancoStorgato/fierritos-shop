@@ -6,7 +6,7 @@ import session from "express-session";
 import environments from "./src/api/config/environments.js";
 import {loggerUrl} from "./src/api/middlewares/middlewares.js";
 import { __dirname, join } from "./src/api/utils/index.js";
-import { productRoutes } from "./src/api/routes/index.js";
+import { productRoutes, authRoutes, viewRoutes, userRoutes } from "./src/api/routes/index.js";
 
 const app = express();
 const {port, session_key} = environments;
@@ -30,13 +30,11 @@ app.use(session({
 }));
 
 app.use(cors());
-app.use(session({
-    secret: "",
-    resave: false,
-    saveUninitialized: false
-}));
 
 app.use("/api/products" , productRoutes);
+app.use("/auth", authRoutes);
+app.use("/dashboard", viewRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);

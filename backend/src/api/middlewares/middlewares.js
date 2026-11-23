@@ -19,7 +19,7 @@ const validateId = (req, res, next) => {
 
 
 const validateProduct = (req, res, next) => {
-    const categoriasValidas = ["food", "drink"];
+    const categoriasValidas = ["MINIGT", "POPRACE"];
     const errores = []; 
 
 
@@ -59,7 +59,7 @@ const validateProduct = (req, res, next) => {
 const requireLogin = (req, res, next) => {
     
     if (!req.session.user) {
-        return res.redirect("/login");
+        return res.redirect("/auth/login");
     }
 
     next();
