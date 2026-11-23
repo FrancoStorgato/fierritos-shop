@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import * as userModel from "../models/user.models.js";
 
 
@@ -21,13 +22,17 @@ export async function login(req,res){
             });
         }
 
-        const user = await userModel.obtenerUsuario(email,password);
+        // 1. Buscamos el usuario por email
+        const user = await userModel.obtenerUsuarioPorEmail(email);
 
-        if(!user){ 
-            return res.render("login", { 
-                title: "login usuario",
-                about: "login de usuario admin",
-                error: "credenciales incorrectas"
+        // 2. Comparamos la password escrita con el hash guardado en la BBDD
+        const passwordCorrecta = user ? await bcrypt.compare(password, user.password) : false;
+
+        if(!user || !passwordCorrecta){
+            return res.render("login", {
+                title: "Login Usuario",
+                about: "Login de Usuario Admin",
+                error: "Credenciales incorrectas"
             })
         }
 

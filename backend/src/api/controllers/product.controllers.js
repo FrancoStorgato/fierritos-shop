@@ -116,21 +116,51 @@ export const modifyProduct = async (req, res) => {
     }
 }
 
-// Eliminar Producto
+// Eliminar Producto (baja logica: pasa a inactivo)
 
 export const removeProduct = async (req, res) => {
     try{
 
-        await productModels.eliminarProducto(req.id);
+        const [result] = await productModels.eliminarProducto(req.id);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: `No existe producto con ID ${req.id}`
+            });
+        }
 
         res.status(200).json({
-            message: `Producto con ID ${req.id} eliminado correctamente`
+            message: `Producto con ID ${req.id} dado de baja (inactivo)`
         });
     }catch(error){
-        console.log("Error obteniendo productos: ", error);
+        console.log("Error dando de baja el producto: ", error);
         //500 es si fallo la conex con la base de datos
         res.status(500).json({
-            message: "Error interno al modificar productos"
+            message: "Error interno al dar de baja el producto"
+        });
+    }
+}
+
+// Reactivar Producto (vuelve a estar activo)
+
+export const activateProduct = async (req, res) => {
+    try{
+
+        const [result] = await productModels.activarProducto(req.id);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: `No existe producto con ID ${req.id}`
+            });
+        }
+
+        res.status(200).json({
+            message: `Producto con ID ${req.id} activado`
+        });
+    }catch(error){
+        console.log("Error activando el producto: ", error);
+        res.status(500).json({
+            message: "Error interno al activar el producto"
         });
     }
 }
