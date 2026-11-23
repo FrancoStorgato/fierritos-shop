@@ -1,33 +1,30 @@
-<body>
     <header>
-        <div class= "logo-container">
-            <img class="logo-header" src="/img/fav-icon.png" alt="logo">
-        </div>
+        <%- include("marca.ejs") %>
 
         <nav>
             <ul>
                 <li class="li-header">
-                    <a href="/dashboard/principal">Pagina principal.</a>
+                    <a href="/dashboard/principal">Dashboard</a>
                 </li>
 
                 <li class="li-header">
-                    <a href="/dashboard/consultar">Pagina consultas.</a>
+                    <a href="/dashboard/consultar">Consultar</a>
                 </li>
 
                 <li class="li-header">
-                    <a href="/dashboard/crear">Pagina crear producto.</a>
+                    <a href="/dashboard/crear">Alta producto</a>
                 </li>
 
                 <li class="li-header">
-                    <a href="/dashboard/crearUser">Pagina crear user.</a>
+                    <a href="/dashboard/modificar">Modificar</a>
                 </li>
 
                 <li class="li-header">
-                    <a href="/dashboard/modificar">Pagina modificar.</a>
+                    <a href="/dashboard/eliminar">Baja</a>
                 </li>
 
                 <li class="li-header">
-                    <a href="/dashboard/eliminar">Pagina eliminar.</a>
+                    <a href="/dashboard/crearUser">Crear admin</a>
                 </li>
 
                 <li class="li-header" id="logout-container">
@@ -38,4 +35,3 @@
             </ul>
         </nav>
     </header>
-</body>

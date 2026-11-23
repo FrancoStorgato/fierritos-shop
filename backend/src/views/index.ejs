@@ -3,28 +3,68 @@
 
 
     <main>
-        <section id="contenedor-productos">
+        <div class="dashboard-top">
+            <h3>Productos</h3>
+            <a class="btn" href="/dashboard/crear">+ Agregar producto</a>
+        </div>
 
-            
-            <% listaProductos.forEach(producto => { %>
+        <section id="mensaje-dashboard"></section>
 
-                <div class="card-producto">
-                
-                    <img class="card-img" src=" <%=producto.image%> " alt="<%=producto.name%>">
-                
-                    <h4><%= producto.name %></h4>
-                
-                    <p>Id: <%= producto.id %></p>
-                
-                    <p>$ <%= producto.price %></p>
-                
-                    <p>Estado: <%= producto.active %> </p>
+        <% const categorias = [ { valor: "auto", titulo: "Autos" }, { valor: "moto", titulo: "Motos" } ]; %>
 
-                </div>
+        <% categorias.forEach(categoria => { %>
 
-            <% }) %>
-            
-        </section>
+            <h3 class="titulo-categoria"><%= categoria.titulo %></h3>
+
+            <section class="grilla-productos">
+
+                <% listaProductos.filter(producto => producto.category === categoria.valor).forEach(producto => { %>
+
+                    <% const activo = Number(producto.active) === 1; %>
+
+                    <div class="card-producto <%= activo ? '' : 'inactivo' %>">
+
+                        <img class="card-img" src="<%= producto.image %>" alt="<%= producto.name %>">
+
+                        <h4><%= producto.name %></h4>
+
+                        <p>Id: <%= producto.id %></p>
+
+                        <p>$ <%= Number(producto.price).toLocaleString("es-AR") %></p>
+
+                        <p>Estado: <span class="estado <%= activo ? 'estado-activo' : 'estado-inactivo' %>"><%= activo ? "Activo" : "Inactivo" %></span></p>
+
+                        <div class="card-acciones">
+                            <a class="btn-chico" href="/dashboard/modificar?id=<%= producto.id %>">Editar</a>
+
+                            <% if (activo) { %>
+                                <button type="button" class="btn-chico btn-peligro" data-accion="baja" data-id="<%= producto.id %>" data-nombre="<%= producto.name %>">Eliminar</button>
+                            <% } else { %>
+                                <button type="button" class="btn-chico" data-accion="activar" data-id="<%= producto.id %>" data-nombre="<%= producto.name %>">Activar</button>
+                            <% } %>
+                        </div>
+
+                    </div>
+
+                <% }) %>
+
+            </section>
+
+        <% }) %>
     </main>
+
+    <!-- Modal de confirmacion para baja / activacion -->
+    <div class="modal-overlay" id="modalConfirmar">
+        <div class="modal-caja">
+            <h3 id="modalTitulo">Confirmar</h3>
+            <p id="modalTexto"></p>
+            <div class="modal-acciones">
+                <button type="button" class="btn-chico" id="modalCancelar">Cancelar</button>
+                <button type="button" class="btn" id="modalAceptar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
 
 <%- include("partials/footer.ejs") %>

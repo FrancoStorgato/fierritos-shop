@@ -12,10 +12,10 @@
             <input type="text" name="name" id="nameUser" required>
 
             <label for="emailUser">Email</label>
-            <input type="text" name="email" id="emailUser" required>
+            <input type="email" name="email" id="emailUser" required>
 
             <label for="passwordUser">Password</label>
-            <input type="password" name="password" id="passwordUser" required>
+            <input type="password" name="password" id="passwordUser" minlength="6" required>
 
             <input type="submit" value="Crear Usuario">
 
@@ -27,4 +27,10 @@
         <p class="mensaje exito centrado"> <%= message %> </p>
     <% } %>
 
+    <% if (typeof error !== "undefined") { %>
+        <p class="mensaje error centrado"> <%= error %> </p>
+    <% } %>
+
 </main>
+
+<%- include("partials/footer.ejs") %>

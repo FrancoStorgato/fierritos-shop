@@ -1,9 +1,13 @@
 <%- include("partials/head.ejs") %>
 
+<header>
+    <%- include("partials/marca.ejs") %>
+</header>
+
 <main>
     <h3 class="centrado"> <%= about %> </h3>
 
-    <form class="form-login" action="/auth/login" method="POST">
+    <form class="form-login" id="formLogin" action="/auth/login" method="POST">
 
         <label for="emailUser">Email</label>
         <input type="email" name="email" id="emailUser" required>
@@ -13,6 +17,9 @@
 
         <input type="submit" value="Login">
 
+        <!-- Boton de acceso rapido para los testers: autocompleta email y password -->
+        <button type="button" class="btn-chico" id="btnAccesoRapido">Acceso rápido</button>
+
     </form>
 
 
@@ -21,5 +28,7 @@
     <% } %>
 
 </main>
+
+<script src="/js/login.js"></script>
 
 <%- include("partials/footer.ejs") %>
