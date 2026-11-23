@@ -131,8 +131,8 @@ function renderizarFormularioPut(producto) {
                 
                 <label for="categoryProd">Categoria</label>
                 <select name="category" id="categoryProd" required>
-                    <option value="MINIGT">MINIGT</option>
-                    <option value="POPRACE">POPRACE</option>
+                    <option value="auto">auto</option>
+                    <option value="moto">moto</option>
                 </select>
                     
                 <label for="imageProd">Imagen</label>

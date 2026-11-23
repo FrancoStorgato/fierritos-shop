@@ -19,7 +19,7 @@ const validateId = (req, res, next) => {
 
 
 const validateProduct = (req, res, next) => {
-    const categoriasValidas = ["MINIGT", "POPRACE"];
+    const categoriasValidas = ["auto", "moto"];
     const errores = []; 
 
 

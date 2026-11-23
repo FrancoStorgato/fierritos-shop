@@ -47,16 +47,21 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `image`, `category`, `price`, `active`) VALUES
 
-(1, 'Golf GTI Mk2', '/img/gti_mk2_pop_race.png', 'POPRACE', '100000.00', 1),
-(2, 'Porsche Targa', '/img/porsche_targa_pop_race.png', 'POPRACE', '150000.00', 1),
-(3, 'Nissan Stagea', '/img/nissan_stagea_pop_race.png', 'POPRACE', '250000.00', 1),
-(4, 'Honda Civic', '/img/honda_civic_poprace.png', 'POPRACE', '250000.00', 1),
-(5, 'Toyota Supra', '/img/supra_poprace.png', 'POPRACE', '250000.00', 1),
-(6, 'BMW 750il', '/img/minigt_bmw_750il.jpg', 'MINIGT', '150000.00', 1),
-(7, 'Ford Falcon', '/img/minigt_ford_falcon_1975.jpg', 'MINIGT', '140000.00', 1),
-(8, 'Subaru Impreza 1998', '/img/minigt_subaru_impreza_1998.jpg', 'MINIGT', '250000.00', 1),
-(9, 'Mazda MX5', '/img/mazda_mx5_miniGT.JPG', 'MINIGT', '140000.00', 1),
-(10, 'Audi Rs6', '/img/rs6_minigt.JPG', 'MINIGT', '250000.00', 1);
+(1, 'POPRACE | Golf GTI Mk2', '/img/gti_mk2_pop_race.png', 'auto', '100000.00', 1),
+(2, 'POPRACE | Porsche Targa', '/img/porsche_targa_pop_race.png', 'auto', '150000.00', 1),
+(3, 'POPRACE | Nissan Stagea', '/img/nissan_stagea_pop_race.png', 'auto', '250000.00', 1),
+(4, 'POPRACE | Honda Civic', '/img/honda_civic_poprace.png', 'auto', '250000.00', 1),
+(5, 'POPRACE | Toyota Supra', '/img/supra_poprace.png', 'auto', '250000.00', 1),
+(6, 'MINIGT | BMW 750il', '/img/minigt_bmw_750il.jpg', 'auto', '150000.00', 1),
+(7, 'MINIGT | Ford Falcon', '/img/minigt_ford_falcon_1975.jpg', 'auto', '140000.00', 1),
+(8, 'MINIGT | Subaru Impreza 1998', '/img/minigt_subaru_impreza_1998.jpg', 'auto', '250000.00', 1),
+(9, 'MINIGT | Mazda MX5', '/img/mazda_mx5_miniGT.JPG', 'auto', '140000.00', 1),
+(10, 'MINIGT | Audi Rs6', '/img/rs6_minigt.JPG', 'auto', '250000.00', 1),
+(12, 'MOTOSDECOLECCION | Suzuki Hayabusa', '/img/hayabusa.png', 'moto', '50000.00', 1),
+(13, 'MOTOSDECOLECCION | BMW S1000RR', '/img/s1000rr.png', 'moto', '70000.00', 1),
+(14, 'MOTOSDECOLECCION | Yamaha R1', '/img/r1.png', 'moto', '60000.00', 1),
+(15, 'MOTOSDECOLECCION | Honda CRF250R', '/img/crf250r.png', 'moto', '30000.00', 1);
+
 
 -- --------------------------------------------------------
 

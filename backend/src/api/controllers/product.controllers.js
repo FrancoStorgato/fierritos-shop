@@ -91,7 +91,7 @@ export const createProduct = async(req, res) => {
 
 export const modifyProduct = async (req, res) => {
     try{
-        const {id, name, image, price, category, active} = req.body;
+        const {name, image, price, category, active, id} = req.body;
 
         const [result] = await productModels.actualizarProducto(name, image, price, category, active, id);
 
