@@ -61,6 +61,7 @@ header {
 .alumnos {
     color: var(--gris);
     font-size: 0.8rem;
+    
 }
 
 nav ul {
@@ -88,6 +89,8 @@ nav a:hover {
     color: var(--texto);
     padding: 0.5rem 1rem;
     transition: background-color 0.5s;
+    margin-top: 0;              
+    align-self: center;  
 }
 
 #btn-logout:hover {
