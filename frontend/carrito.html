@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fierritos Shop | Carrito</title>
+    <link rel="icon" href="img/fav-icon.png" />
+
+    <!-- Fuente DM Sans (la misma del proyecto TrabajoProgramacion) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/tema.js"></script>
+    <script defer src="js/config.js"></script>
+    <script defer src="js/api.js"></script>
+    <script defer src="js/comun.js"></script>
+    <script defer src="js/carrito.js"></script>
+</head>
+<body>
+    <header class="header">
+        <a href="productos.html" class="brand">
+            <img src="img/fav-icon.png" alt="Logo Fierritos Shop" class="logo-img" />
+            <div>
+                <h1>Fierritos Shop</h1>
+                <span class="students" id="alumnos"></span>
+            </div>
+        </a>
+
+        <nav class="navbar">
+            <a href="productos.html" class="nav-link">Productos</a>
+            <a href="carrito.html" class="nav-link active">
+                Carrito <span class="badge-count" id="cartBadge">0</span>
+            </a>
+            <button type="button" class="btn-contacto" id="btnTema">Cambiar tema</button>
+            <a href="http://localhost:3000/auth/login" class="btn-contacto" id="linkAdmin">Admin</a>
+        </nav>
+    </header>
+
+    <main class="page">
+        <section class="seccion-catalogo">
+            <h2 class="titulo-seccion">Tu pedido</h2>
+
+            <div id="cartList" class="cart-list"></div>
+
+            <p class="mensaje-error" id="errorCompra"></p>
+
+            <div class="cart-summary">
+                <div class="total-line">
+                    <span class="total-label">Total</span>
+                    <span class="total-price" id="cartTotal">$ 0</span>
+                </div>
+                <div class="summary-actions">
+                    <a href="productos.html" class="btn btn-secundario">Seguir comprando</a>
+                    <button type="button" id="checkoutBtn" class="btn btn-primary">Finalizar compra</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de confirmacion de compra -->
+    <div class="ventana-overlay" id="confirmModal">
+        <div class="ventana-contenido">
+            <h3 class="ventana-titulo">Confirmar pedido</h3>
+            <p class="ventana-texto">¿Confirmás la compra por <strong id="totalModal"></strong>?</p>
+            <div class="modal-actions">
+                <button type="button" id="cancelBtn" class="btn btn-secundario">Cancelar</button>
+                <button type="button" id="okBtn" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 Fierritos Shop — Autos y Motos a escala.</p>
+    </footer>
+</body>
+</html>

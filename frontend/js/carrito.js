@@ -1,79 +1,103 @@
-const cartList = document.getElementById("cart-list");
-const modal = document.getElementById("confirmModal");
+exigirNombre();
 
-function render() {
-    const cart = getCart();
-    updateBadge();
+const cartList = document.getElementById("cartList");
+const cartTotal = document.getElementById("cartTotal");
+const checkoutBtn = document.getElementById("checkoutBtn");
+const errorCompra = document.getElementById("errorCompra");
 
-    if (cart.length === 0) {
-        cartList.innerHTML = `
-            <div class="empty-cart">
-                <p>Tu carrito esta vacio</p>
-                <a class="btn btn-primary" href="productos.html">Ver productos</a>
-            </div>`;
-        document.getElementById("cartTotal").textContent = "0";
-        document.getElementById("checkoutBtn").disabled = true;
+const confirmModal = document.getElementById("confirmModal");
+const totalModal = document.getElementById("totalModal");
+const cancelBtn = document.getElementById("cancelBtn");
+const okBtn = document.getElementById("okBtn");
+
+
+function renderizarCarrito() {
+    const carrito = obtenerCarrito();
+
+    cartTotal.textContent = formatearPrecio(totalCarrito(carrito));
+
+    if (carrito.length === 0) {
+        cartList.innerHTML = "<p class='loading'>Tu carrito está vacío. Volvé a productos para sumar modelos.</p>";
+        checkoutBtn.disabled = true;
         return;
     }
 
-    document.getElementById("checkoutBtn").disabled = false;
+    checkoutBtn.disabled = false;
     cartList.innerHTML = "";
-    cart.forEach(item => {
-        const row = document.createElement("article");
-        row.className = "cart-row";
-        row.innerHTML = `
-            <img src="${imageUrl(item.image)}" alt="${item.name}">
+
+    carrito.forEach(item => {
+        const fila = document.createElement("div");
+        fila.className = "cart-row";
+        fila.innerHTML = `
+            <img src="${urlImagen(item.image)}" alt="${item.name}">
             <div class="cart-info">
                 <h3>${item.name}</h3>
-                <p class="unit">$ ${item.price.toLocaleString("es-AR")} c/u</p>
-                <div class="cart-controls">
-                    <div class="cantidad">
-                        <button class="cantidad-btn" data-action="minus" data-id="${item.id}" aria-label="Quitar uno">-</button>
-                        <span>${item.cantidad}</span>
-                        <button class="cantidad-btn" data-action="plus" data-id="${item.id}" aria-label="Agregar uno">+</button>
-                    </div>
-                    <div class="cart-right">
-                        <span class="subtotal">$ ${(item.price * item.cantidad).toLocaleString("es-AR")}</span>
-                        <button class="quitar" data-action="remove" data-id="${item.id}">Quitar</button>
-                    </div>
-                </div>
+                <span class="cat">${nombreCategoria(item.category)} · ${formatearPrecio(item.price)} c/u</span>
+            </div>
+            <div class="cantidad">
+                <button type="button" class="cantidad-btn" data-accion="restar">-</button>
+                <span>${item.quantity}</span>
+                <button type="button" class="cantidad-btn" data-accion="sumar">+</button>
+            </div>
+            <div class="cart-right">
+                <strong>${formatearPrecio(item.price * item.quantity)}</strong>
+                <button type="button" class="quitar" data-accion="quitar">Eliminar</button>
             </div>
         `;
-        cartList.appendChild(row);
-    });
 
-    document.getElementById("cartTotal").textContent = cartTotal().toLocaleString("es-AR");
+        fila.querySelectorAll("[data-accion]").forEach(boton => {
+            boton.addEventListener("click", () => {
+                modificarCarrito(item, boton.dataset.accion);
+                renderizarCarrito();
+            });
+        });
+
+        cartList.appendChild(fila);
+    });
 }
 
-cartList.addEventListener("click", event => {
-    const button = event.target.closest("button");
-    if (!button) return;
-    const id = button.dataset.id;
-    if (button.dataset.action === "plus") changeCantidad(id, 1);
-    if (button.dataset.action === "minus") changeCantidad(id, -1);
-    if (button.dataset.action === "remove") removeFromCart(id);
-    render();
+
+/////////////////////////
+// Modal de confirmacion
+
+checkoutBtn.addEventListener("click", () => {
+    errorCompra.textContent = "";
+    totalModal.textContent = formatearPrecio(totalCarrito(obtenerCarrito()));
+    confirmModal.classList.add("abrir");
 });
 
-document.getElementById("checkoutBtn").addEventListener("click", () => {
-    modal.classList.add("open");
+cancelBtn.addEventListener("click", () => {
+    confirmModal.classList.remove("abrir");
 });
 
-document.getElementById("cancelBtn").addEventListener("click", () => {
-    modal.classList.remove("open");
-});
 
-document.getElementById("okBtn").addEventListener("click", async () => {
+okBtn.addEventListener("click", async () => {
+    okBtn.disabled = true;
+
     try {
-        const items = getCart().map(item => ({ id: item.id, cantidad: item.cantidad }));
-        const sale = await createSale(localStorage.getItem("anteiku_name"), items);
-        sessionStorage.setItem("anteiku_last_sale", JSON.stringify(sale));
-        clearCart();
+        // POST /api/sales -> se guarda la venta en la BBDD
+        const venta = await registrarVenta(obtenerNombre(), obtenerCarrito());
+
+        // Guardamos los datos del ticket para mostrarlos en la pantalla ticket
+        const ticket = {
+            id: venta.id,
+            nombre: venta.user_name,
+            fecha: new Date().toISOString(),
+            productos: venta.products,
+            total: venta.total
+        };
+
+        sessionStorage.setItem("ticket", JSON.stringify(ticket));
+        sessionStorage.removeItem("carrito");
+
         window.location.href = "ticket.html";
+
     } catch (error) {
-        alert("No pudimos registrar tu compra. Probá de nuevo en un momento.");
-        modal.classList.remove("open");
+        console.error("Error al registrar la venta: ", error);
+        confirmModal.classList.remove("abrir");
+        errorCompra.textContent = `No se pudo registrar la compra: ${error.message}`;
+        okBtn.disabled = false;
     }
 });
 
-render();
+renderizarCarrito();

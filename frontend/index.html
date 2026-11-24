@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fierritos Shop | Bienvenida</title>
+    <link rel="icon" href="img/fav-icon.png" />
+
+    <!-- Fuente DM Sans (la misma del proyecto TrabajoProgramacion) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/tema.js"></script>
+    <script defer src="js/config.js"></script>
+    <script defer src="js/comun.js"></script>
+    <script defer src="js/bienvenida.js"></script>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="img/fav-icon.png" alt="Logo Fierritos Shop" class="logo-img" />
+            <div>
+                <h1>Fierritos Shop</h1>
+                <span class="students" id="alumnos"></span>
+            </div>
+        </a>
+
+        <nav class="navbar">
+            <button type="button" class="btn-contacto" id="btnTema">Cambiar tema</button>
+            <a href="http://localhost:3000/auth/login" class="btn-contacto" id="linkAdmin">Admin</a>
+        </nav>
+    </header>
+
+    <main class="page">
+        <section class="hero-banner bienvenida">
+            <p class="hero-kicker">Autoservicio en local</p>
+            <h2>Bienvenido a Fierritos Shop</h2>
+            <p class="hero-subtitle">Autos y motos a escala. Ingresá tu nombre para empezar tu pedido.</p>
+
+            <form id="formBienvenida" class="form-bienvenida">
+                <label for="nombreCliente">Tu nombre</label>
+                <input type="text" id="nombreCliente" name="nombre" maxlength="60" placeholder="Ej: Martín" required />
+                <p class="mensaje-error" id="errorNombre"></p>
+                <button type="submit" class="btn btn-primary">Continuar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Fierritos Shop — Autos y Motos a escala.</p>
+    </footer>
+</body>
+</html>

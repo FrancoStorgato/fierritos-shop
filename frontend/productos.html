@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fierritos Shop | Productos</title>
+    <link rel="icon" href="img/fav-icon.png" />
+
+    <!-- Fuente DM Sans (la misma del proyecto TrabajoProgramacion) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/tema.js"></script>
+    <script defer src="js/config.js"></script>
+    <script defer src="js/api.js"></script>
+    <script defer src="js/comun.js"></script>
+    <script defer src="js/productos.js"></script>
+</head>
+<body>
+    <header class="header">
+        <a href="productos.html" class="brand">
+            <img src="img/fav-icon.png" alt="Logo Fierritos Shop" class="logo-img" />
+            <div>
+                <h1>Fierritos Shop</h1>
+                <span class="students" id="alumnos"></span>
+            </div>
+        </a>
+
+        <nav class="navbar">
+            <a href="productos.html" class="nav-link active">Productos</a>
+            <a href="carrito.html" class="nav-link">
+                Carrito <span class="badge-count" id="cartBadge">0</span>
+            </a>
+            <button type="button" class="btn-contacto" id="btnTema">Cambiar tema</button>
+            <a href="http://localhost:3000/auth/login" class="btn-contacto" id="linkAdmin">Admin</a>
+        </nav>
+    </header>
+
+    <main class="page">
+        <section class="hero-banner">
+            <p class="hero-kicker">Autoservicio en local</p>
+            <h2>Hola, <span id="saludoCliente"></span></h2>
+            <p class="hero-subtitle">Elegí una categoría y sumá los modelos que quieras a tu pedido.</p>
+        </section>
+
+        <section class="seccion-catalogo">
+            <div class="catalogo-header">
+                <h2 class="titulo-seccion">Vehículos a escala</h2>
+                <div class="tabs">
+                    <button type="button" class="tab active" data-cat="auto">Autos</button>
+                    <button type="button" class="tab" data-cat="moto">Motos</button>
+                </div>
+            </div>
+
+            <div id="productsGrid" class="grid"></div>
+
+            <div class="ir-carrito">
+                <a href="carrito.html" class="btn btn-primary">Ver carrito</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Fierritos Shop — Autos y Motos a escala.</p>
+    </footer>
+</body>
+</html>

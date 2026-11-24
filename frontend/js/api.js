@@ -1,29 +1,50 @@
-async function fetchProducts(categoria = null) {
-    let url = `${API_URL}/api/products`;
-    if (categoria) {
-        url += `?category=${encodeURIComponent(categoria)}`;
+// Funciones que se comunican con la API REST del backend
+
+// GET /api/products/active -> solo los productos activos
+async function obtenerProductosActivos() {
+    const response = await fetch(`${API_URL}/api/products/active`);
+    const data = await response.json();
+
+    // fetch no tira error con 404 o 500, por eso revisamos response.ok
+    if (!response.ok) {
+        throw new Error(data.message);
     }
-    const res = await fetch(url);
-    if (!res.ok) {
-        throw new Error("Error al cargar los productos");
-    }
-    return res.json();
+
+    return data.payload;
 }
 
-async function createSale(user_name, products) {
-    const res = await fetch(`${API_URL}/api/sales`, {
+
+// POST /api/sales -> registra la venta y devuelve sus datos
+async function registrarVenta(nombreCliente, carrito) {
+    const venta = {
+        user_name: nombreCliente,
+        products: carrito.map(item => ({ id: item.id, quantity: item.quantity }))
+    };
+
+    const response = await fetch(`${API_URL}/api/sales`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_name, products })
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(venta)
     });
-    if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.message || "Error al registrar la venta");
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        // Si el middleware de validacion devolvio una lista de errores, la mostramos completa
+        const detalle = data.listaErrores ? data.listaErrores.join(". ") : data.message;
+        throw new Error(detalle);
     }
-    return res.json();
+
+    return data.payload;
 }
 
 
-function imageUrl(path) {
-    return API_URL + path;
+// Las imagenes se guardan como ruta del backend (/img/...), les agregamos la URL del servidor
+function urlImagen(ruta) {
+    if (ruta.startsWith("http")) {
+        return ruta;
+    }
+    return API_URL + ruta;
 }
