@@ -1,36 +1,11 @@
--- phpMyAdmin SQL Dump
--- version 5.2.3
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2026 a las 02:38:37
--- Versión del servidor: 10.11.19-MariaDB
--- Versión de PHP: 8.5.13
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `fierritos-shop`
---
 
 CREATE DATABASE IF NOT EXISTS `fierritos-shop`
   DEFAULT CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_ci;
 USE `fierritos-shop`;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `products`
---
 
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
@@ -40,10 +15,6 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `products`
---
 
 INSERT INTO `products` (`id`, `name`, `image`, `category`, `price`, `active`) VALUES
 (1, 'POPRACE | Golf GTI Mk2', '/img/gti_mk2_pop_race.png', 'auto', 100000.00, 1),
@@ -61,21 +32,11 @@ INSERT INTO `products` (`id`, `name`, `image`, `category`, `price`, `active`) VA
 (14, 'MOTOSDECOLECCION | Yamaha R1', '/img/r1.png', 'moto', 60000.00, 1),
 (15, 'MOTOSDECOLECCION | Honda CRF250R', '/img/crf250r.png', 'moto', 30000.00, 1);
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `product_sales`
---
-
 CREATE TABLE `product_sales` (
   `product_id` int(11) NOT NULL,
   `sale_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `product_sales`
---
 
 INSERT INTO `product_sales` (`product_id`, `sale_id`, `quantity`) VALUES
 (1, 1, 1),
@@ -106,22 +67,12 @@ INSERT INTO `product_sales` (`product_id`, `sale_id`, `quantity`) VALUES
 (9, 9, 2),
 (8, 9, 1);
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `sales`
---
-
 CREATE TABLE `sales` (
   `id` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp(),
   `total_price` decimal(10,2) NOT NULL,
   `user_name` varchar(240) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `sales`
---
 
 INSERT INTO `sales` (`id`, `date`, `total_price`, `user_name`) VALUES
 (1, '2025-12-03 15:46:37', 100000.00, 'Fran'),
@@ -134,12 +85,6 @@ INSERT INTO `sales` (`id`, `date`, `total_price`, `user_name`) VALUES
 (8, '2026-11-23 17:33:43', 1450000.00, 'cacho'),
 (9, '2026-11-23 22:59:26', 1000000.00, 'martin');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `users`
---
-
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -147,77 +92,34 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `users`
---
-
 INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
 (1, 'Admin Fierritos', 'admin@fierritos.com', '$2b$10$ZjR2KwlmmAxt2stjb3hW..pPHZJqIGq6LX3iVng1UbETeQxXHKtk6'),
 (2, 'martin', 'martin@admin.com', '$2b$10$2KF/mXwGVQu7E1KN6ag0Pu4nVQj65J4tlx.ypJlW7/62pSEgr5OBW');
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `products`
---
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
---
--- Indices de la tabla `product_sales`
---
 ALTER TABLE `product_sales`
   ADD KEY `product_id` (`product_id`,`sale_id`),
   ADD KEY `sale_id` (`sale_id`);
 
---
--- Indices de la tabla `sales`
---
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`);
 
---
--- Indices de la tabla `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `products`
---
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
---
--- AUTO_INCREMENT de la tabla `sales`
---
 ALTER TABLE `sales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
---
--- AUTO_INCREMENT de la tabla `users`
---
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `product_sales`
---
 ALTER TABLE `product_sales`
   ADD CONSTRAINT `product_sales_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `product_sales_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

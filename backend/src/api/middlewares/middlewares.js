@@ -1,9 +1,11 @@
+// Loguea metodo y url de cada request
 const loggerUrl = (req, res, next) => {
     const fecha = new Date();
     console.log(`[${fecha.toLocaleDateString()} ${fecha.toLocaleTimeString()}] ${req.method} ${req.url}`);
     next();
 };
 
+//valida que el id sea un numero entero positivo
 const validateId = (req, res, next) => {
     const id = Number(req.params.id); 
 
@@ -17,7 +19,7 @@ const validateId = (req, res, next) => {
     next(); 
 }
 
-
+//valida que todos los imputs de post.ejs esten correctos
 const validateProduct = (req, res, next) => {
     const categoriasValidas = ["auto", "moto"];
     const errores = []; 
@@ -56,7 +58,7 @@ const validateProduct = (req, res, next) => {
     next(); 
 }
 
-// Valida el body de una venta: { user_name, products: [ { id, quantity } ] }
+// Valida el body de una venta
 const validateSale = (req, res, next) => {
     const errores = [];
 
@@ -105,6 +107,8 @@ const validateUser = (req, res, next) => {
     next();
 }
 
+
+//Exige al momento que cambiemos de pagina estemos logeados
 const requireLogin = (req, res, next) => {
     
     if (!req.session.user) {
@@ -114,7 +118,7 @@ const requireLogin = (req, res, next) => {
     next();
 }
 
-
+//exportamos todos los middlewares
 export{
     loggerUrl,
     validateId,

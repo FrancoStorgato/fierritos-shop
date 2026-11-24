@@ -11,6 +11,7 @@ function mostrarError(mensaje) {
 
 
 
+// Pedimos el producto a la API y lo dibujamos abajo del formulario
 getProductForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 

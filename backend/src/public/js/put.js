@@ -63,14 +63,13 @@ getProductForm.addEventListener("submit", (event) => {
 });
 
 
-// Si venimos desde el boton "Editar" del dashboard (/dashboard/modificar?id=5)
-// cargamos el producto y mostramos el formulario directamente
 const idDesdeUrl = new URLSearchParams(window.location.search).get("id");
 
 if (idDesdeUrl) {
     document.getElementById("idProd").value = idDesdeUrl;
     consultarProducto(idDesdeUrl, true);
 }
+
 
 
 async function consultarProducto(idProd, mostrarFormularioDirecto) {
@@ -220,7 +219,6 @@ function renderizarFormularioPut(producto) {
             console.log(data.message);
             mostrarMensaje("exito", data.message);
 
-            // Volvemos al dashboard para ver el producto modificado
             window.location.href = "/dashboard/principal";
 
 

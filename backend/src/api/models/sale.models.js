@@ -1,22 +1,20 @@
-//Modelado de ventas
-
 import connection from "../database/db.js";
 
-//Registramos la venta (la fecha la completa sola la BBDD con CURRENT_TIMESTAMP)
+//Registramos la venta
 const insertarVenta = (user_name, total_price) => {
     const sql = "INSERT INTO sales (user_name, total_price) VALUES (?, ?)";
 
     return connection.query(sql, [user_name, total_price]);
 }
 
-//Registramos cada producto de la venta en la tabla intermedia (relacion muchos a muchos)
+//Registramos cada producto de la venta
 const insertarProductoVenta = (product_id, sale_id, quantity) => {
     const sql = "INSERT INTO product_sales (product_id, sale_id, quantity) VALUES (?, ?, ?)";
 
     return connection.query(sql, [product_id, sale_id, quantity]);
 }
 
-//Obtenemos las ventas junto con los productos asociados
+//Obtenemos las ventas
 const seleccionarVentasConProductos = () => {
     const sql = `
         SELECT sales.id, sales.date, sales.total_price, sales.user_name,
@@ -30,6 +28,7 @@ const seleccionarVentasConProductos = () => {
     return connection.query(sql);
 }
 
+//Exportamos las funciones
 export default {
     insertarVenta,
     insertarProductoVenta,

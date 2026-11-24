@@ -1,9 +1,7 @@
 import productModels from "../models/product.models.js";
 import saleModels from "../models/sale.models.js";
 
-// Crear una venta
-// Body esperado: { user_name: "Martin", products: [ { id: 1, quantity: 2 }, ... ] }
-
+// Creamos una venta
 export const createSale = async (req, res) => {
     try {
         const { user_name, products } = req.body;
@@ -11,7 +9,7 @@ export const createSale = async (req, res) => {
         let total = 0;
         const detalle = [];
 
-        // El precio lo tomamos de la BBDD (no confiamos en el precio que manda el cliente)
+        
         for (const item of products) {
             const [rows] = await productModels.seleccionarProductosPorID(item.id);
 
@@ -34,11 +32,11 @@ export const createSale = async (req, res) => {
             });
         }
 
-        // 1. Guardamos la venta y obtenemos su id
+        
         const [result] = await saleModels.insertarVenta(user_name.trim(), total);
         const saleId = result.insertId;
 
-        // 2. Guardamos cada producto vendido en la tabla intermedia
+        
         for (const item of detalle) {
             await saleModels.insertarProductoVenta(item.id, saleId, item.quantity);
         }
@@ -61,7 +59,7 @@ export const createSale = async (req, res) => {
     }
 }
 
-// Listado de ventas con sus productos
+//Listado de ventas con sus productos
 
 export const getSales = async (req, res) => {
     try {
@@ -73,7 +71,7 @@ export const getSales = async (req, res) => {
             });
         }
 
-        // Cada fila es "una venta + un producto", las agrupamos por venta
+        
         const ventas = [];
 
         rows.forEach(fila => {

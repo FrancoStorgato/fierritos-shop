@@ -1,24 +1,13 @@
-// Funciones compartidas por todas las pantallas del cliente
-// El nombre y el carrito se guardan en sessionStorage: es un autoservicio, al terminar la compra se reinicia todo
-
-
-/////////////////////////
-// Nombre del cliente
 
 function obtenerNombre() {
     return sessionStorage.getItem("nombreCliente");
 }
 
-// Si el cliente no ingreso su nombre, lo mandamos a la pantalla de bienvenida
 function exigirNombre() {
     if (!obtenerNombre()) {
         window.location.href = "index.html";
     }
 }
-
-
-/////////////////////////
-// Carrito
 
 function obtenerCarrito() {
     return JSON.parse(sessionStorage.getItem("carrito")) || [];
@@ -29,7 +18,6 @@ function guardarCarrito(carrito) {
     actualizarContador();
 }
 
-// accion puede ser: "agregar", "sumar", "restar" o "quitar"
 function modificarCarrito(producto, accion) {
     const carrito = obtenerCarrito();
     const indice = carrito.findIndex(item => item.id === producto.id);
@@ -52,7 +40,6 @@ function modificarCarrito(producto, accion) {
     if (accion === "restar" && indice !== -1) {
         carrito[indice].quantity--;
 
-        // Si llega a 0 lo sacamos del carrito
         if (carrito[indice].quantity === 0) {
             carrito.splice(indice, 1);
         }
@@ -81,10 +68,6 @@ function actualizarContador() {
     }
 }
 
-
-/////////////////////////
-// Utilidades
-
 function formatearPrecio(numero) {
     return "$ " + Number(numero).toLocaleString("es-AR");
 }
@@ -92,10 +75,6 @@ function formatearPrecio(numero) {
 function nombreCategoria(categoria) {
     return categoria === "auto" ? "Autos" : "Motos";
 }
-
-
-/////////////////////////
-// Header comun: nombre de los alumnos, link al admin y contador del carrito
 
 document.getElementById("alumnos").textContent = ALUMNOS;
 document.getElementById("linkAdmin").href = `${API_URL}/auth/login`;

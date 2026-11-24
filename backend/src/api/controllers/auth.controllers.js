@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import * as userModel from "../models/user.models.js";
 
 
+// Mostramos el formulario de login
 export function mostrarLogin(req, res) {
     res.render("login", {
         title: "Login",
@@ -10,6 +11,7 @@ export function mostrarLogin(req, res) {
 }
 
 
+// Validamos email y password contra la BBDD y guardamos el usuario en la sesion
 export async function login(req,res){
     try{
         const {email,password} = req.body;
@@ -22,10 +24,10 @@ export async function login(req,res){
             });
         }
 
-        // 1. Buscamos el usuario por email
+        
         const user = await userModel.obtenerUsuarioPorEmail(email);
 
-        // 2. Comparamos la password escrita con el hash guardado en la BBDD
+        
         const passwordCorrecta = user ? await bcrypt.compare(password, user.password) : false;
 
         if(!user || !passwordCorrecta){
@@ -53,6 +55,7 @@ export async function login(req,res){
 
 }
 
+// Destruimos la sesion y volvemos al login
 export function logout(req, res) {
     req.session.destroy((err) => {
 

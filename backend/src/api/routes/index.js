@@ -1,3 +1,5 @@
+// Juntamos todas las rutas y las exportamos para usarlas en index.js
+
 import productRoutes from "./product.routes.js"; 
 import viewRoutes from "./view.routes.js"; 
 import authRoutes from "./auth.routes.js"; 

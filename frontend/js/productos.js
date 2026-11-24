@@ -4,13 +4,11 @@ const grid = document.getElementById("productsGrid");
 const tabs = document.querySelectorAll(".tab");
 const saludoCliente = document.getElementById("saludoCliente");
 
-let productos = [];          // Productos activos que trae la API
+let productos = [];
 let categoriaActual = "auto";
 
 saludoCliente.textContent = obtenerNombre();
 
-
-// Cambiamos de categoria con las pestañas
 tabs.forEach(tab => {
     tab.addEventListener("click", () => {
         categoriaActual = tab.dataset.cat;
@@ -51,7 +49,6 @@ function renderizarProductos() {
     lista.forEach(producto => {
         const enCarrito = carrito.find(item => item.id === producto.id);
 
-        // Si ya esta en el carrito mostramos los controles de cantidad, si no el boton agregar
         const controles = enCarrito
             ? `
                 <div class="cantidad">

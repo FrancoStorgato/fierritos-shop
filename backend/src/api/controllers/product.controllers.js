@@ -44,7 +44,7 @@ const getAllactiveProducts = async (req, res) => {
     }  
 }
 
-//Obtener productos por ID
+//Obtenemos productos por ID
 
 export const getAllProductsByID = async (req, res) => {
     try{
@@ -87,7 +87,7 @@ export const createProduct = async(req, res) => {
     }
 }
 
-//modificamos producto
+//Modificamos el porducto
 
 export const modifyProduct = async (req, res) => {
     try{
@@ -108,7 +108,7 @@ export const modifyProduct = async (req, res) => {
 
     }catch(error){
         console.log("Error obteniendo productos: ", error);
-        //500 es si fallo la conex con la base de datos
+        
         res.status(500).json({
             message: "Error interno al modificar productos"
         });
@@ -116,8 +116,7 @@ export const modifyProduct = async (req, res) => {
     }
 }
 
-// Eliminar Producto (baja logica: pasa a inactivo)
-
+// Eliminamos el producto
 export const removeProduct = async (req, res) => {
     try{
 
@@ -130,37 +129,13 @@ export const removeProduct = async (req, res) => {
         }
 
         res.status(200).json({
-            message: `Producto con ID ${req.id} dado de baja (inactivo)`
+            message: `Producto con ID ${req.id} eliminado`
         });
     }catch(error){
         console.log("Error dando de baja el producto: ", error);
-        //500 es si fallo la conex con la base de datos
+        
         res.status(500).json({
             message: "Error interno al dar de baja el producto"
-        });
-    }
-}
-
-// Reactivar Producto (vuelve a estar activo)
-
-export const activateProduct = async (req, res) => {
-    try{
-
-        const [result] = await productModels.activarProducto(req.id);
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                message: `No existe producto con ID ${req.id}`
-            });
-        }
-
-        res.status(200).json({
-            message: `Producto con ID ${req.id} activado`
-        });
-    }catch(error){
-        console.log("Error activando el producto: ", error);
-        res.status(500).json({
-            message: "Error interno al activar el producto"
         });
     }
 }

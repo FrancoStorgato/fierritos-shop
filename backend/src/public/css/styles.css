@@ -10,7 +10,6 @@
     --gris: #9ca3af;
     --acento: #c9e9f7;
     --texto-acento: #101319;
-    --footer: #121216;
     --error: #f3a6a6;
 }
 
@@ -85,14 +84,9 @@ nav a:hover {
 
 /* Boton logout (como el boton contacto) */
 #btn-logout {
-    width: auto;
     background-color: transparent;
     color: var(--texto);
-    border: 1px solid var(--acento);
     padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
     transition: background-color 0.5s;
 }
 

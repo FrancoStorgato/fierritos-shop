@@ -9,32 +9,30 @@ const mensajeDashboard = document.getElementById("mensaje-dashboard");
 // Guardamos que accion se va a confirmar en el modal
 let accionPendiente = null;
 
-
+//funcion para mostrar mensajes
 function mostrarMensaje(tipo, mensaje) {
     mensajeDashboard.innerHTML = `<p class="mensaje ${tipo}">${mensaje}</p>`;
 }
 
+
+//funcion que abre el modal de confirmacion
 function abrirModal(accion, id, nombre) {
     accionPendiente = { accion, id };
 
-    if (accion === "baja") {
-        modalTitulo.textContent = "Eliminar producto";
-        modalTexto.textContent = `¿Seguro que queres dar de baja "${nombre}"? Va a quedar inactivo y no se vera en la tienda.`;
-    } else {
-        modalTitulo.textContent = "Activar producto";
-        modalTexto.textContent = `¿Seguro que queres activar "${nombre}"? Va a volver a verse en la tienda.`;
-    }
+    modalTexto.textContent = `¿Seguro que queres eliminar "${nombre}"? Se borra de la base y no se puede recuperar.`;
 
     modal.classList.add("abierto");
 }
 
+
+//funcion que cierra el modal de confirmacion
 function cerrarModal() {
     accionPendiente = null;
     modal.classList.remove("abierto");
 }
 
 
-// Todos los botones Eliminar / Activar tienen data-accion, data-id y data-nombre
+// Todos los botones Eliminar tienen data-accion, data-id y data-nombre
 document.querySelectorAll("[data-accion]").forEach(boton => {
     boton.addEventListener("click", () => {
         abrirModal(boton.dataset.accion, boton.dataset.id, boton.dataset.nombre);
@@ -49,12 +47,8 @@ modalAceptar.addEventListener("click", async () => {
 
     const { accion, id } = accionPendiente;
 
-    // Baja logica -> DELETE /api/products/:id   |   Activar -> PUT /api/products/:id/activar
-    const url = accion === "baja"
-        ? `${urlBase}/api/products/${id}`
-        : `${urlBase}/api/products/${id}/activar`;
-
-    const metodo = accion === "baja" ? "DELETE" : "PUT";
+    const url = `${urlBase}/api/products/${id}`;
+    const metodo = "DELETE";
 
     try {
         const response = await fetch(url, { method: metodo });
@@ -66,7 +60,7 @@ modalAceptar.addEventListener("click", async () => {
             return mostrarMensaje("error", data.message);
         }
 
-        // Recargamos para ver el nuevo estado del producto
+        
         window.location.reload();
 
     } catch (error) {

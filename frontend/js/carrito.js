@@ -56,10 +56,6 @@ function renderizarCarrito() {
     });
 }
 
-
-/////////////////////////
-// Modal de confirmacion
-
 checkoutBtn.addEventListener("click", () => {
     errorCompra.textContent = "";
     totalModal.textContent = formatearPrecio(totalCarrito(obtenerCarrito()));
@@ -75,10 +71,8 @@ okBtn.addEventListener("click", async () => {
     okBtn.disabled = true;
 
     try {
-        // POST /api/sales -> se guarda la venta en la BBDD
         const venta = await registrarVenta(obtenerNombre(), obtenerCarrito());
 
-        // Guardamos los datos del ticket para mostrarlos en la pantalla ticket
         const ticket = {
             id: venta.id,
             nombre: venta.user_name,

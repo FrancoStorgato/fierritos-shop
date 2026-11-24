@@ -1,14 +1,14 @@
 import bcrypt from "bcrypt";
 import { insertarNuevoUsuario } from "../models/user.models.js";
 
-
+//Creamos un usuario
 export const createNewUser = async (req, res) => {
 
     try {
 
         const { name, email, password } = req.body;
 
-        // Nunca guardamos la password como viene: la hasheamos con bcrypt (10 rondas de salt)
+        
         const passwordHasheada = await bcrypt.hash(password, 10);
 
         const [result] = await insertarNuevoUsuario(name.trim(), email.trim(), passwordHasheada);

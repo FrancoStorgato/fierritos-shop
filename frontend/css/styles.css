@@ -74,7 +74,6 @@ body {
 }
 
 .students {
-    display: block;
     color: var(--gris);
     font-size: 0.8rem;
 }
@@ -113,17 +112,8 @@ body {
 
 /* Boton con borde (como el boton contacto) */
 .btn-contacto {
-    background-color: transparent;
-    color: var(--texto);
-    border: 1px solid var(--acento);
     padding: 0.6rem 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-family: inherit;
     font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.5s;
 }
 
 .btn-contacto:hover {
@@ -134,21 +124,25 @@ body {
 /* =========================================
    BOTONES
 ========================================= */
+.btn,
+.btn-contacto {
+    background-color: transparent;
+    color: var(--texto);
+    border: 1px solid var(--acento);
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
-    color: var(--texto);
-    border: 1px solid var(--acento);
     padding: 0.7rem 1.2rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-family: inherit;
     font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.5s;
 }
 
 .btn:hover {
@@ -369,7 +363,6 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-top: auto;
     padding-top: 0.75rem;
 }
 

@@ -5,6 +5,7 @@ const createProductForm = document.getElementById("createProductForm");
 
 
 
+// Validamos del lado del cliente antes de mandar el producto a la API
 function validarFormulario(data) {
     const errores = [];
 

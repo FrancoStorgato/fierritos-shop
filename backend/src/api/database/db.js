@@ -3,6 +3,7 @@ import environments from "../config/environments.js";
 
 const { database } = environments;
 
+// Pool de conexiones
 const connection = mysql.createPool({
     host: database.host,
     database: database.name,

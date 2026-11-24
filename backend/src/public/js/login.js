@@ -1,4 +1,4 @@
-// Acceso rapido: completa el login con el admin de prueba que esta en BBDD/base.sql
+// Acceso rapido
 const btnAccesoRapido = document.getElementById("btnAccesoRapido");
 
 btnAccesoRapido.addEventListener("click", () => {

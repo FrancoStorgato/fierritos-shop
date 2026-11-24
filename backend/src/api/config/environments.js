@@ -1,5 +1,6 @@
 import "dotenv/config";
 
+// Configuracion del servidor
 export default{
     port: process.env.PORT || 3000,
     session_key: process.env.SESSION_KEY || "fierritos",

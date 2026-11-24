@@ -20,9 +20,7 @@
 
                 <% listaProductos.filter(producto => producto.category === categoria.valor).forEach(producto => { %>
 
-                    <% const activo = Number(producto.active) === 1; %>
-
-                    <div class="card-producto <%= activo ? '' : 'inactivo' %>">
+                    <div class="card-producto>">
 
                         <img class="card-img" src="<%= producto.image %>" alt="<%= producto.name %>">
 
@@ -32,16 +30,11 @@
 
                         <p>$ <%= Number(producto.price).toLocaleString("es-AR") %></p>
 
-                        <p>Estado: <span class="estado <%= activo ? 'estado-activo' : 'estado-inactivo' %>"><%= activo ? "Activo" : "Inactivo" %></span></p>
-
                         <div class="card-acciones">
+                            
                             <a class="btn-chico" href="/dashboard/modificar?id=<%= producto.id %>">Editar</a>
 
-                            <% if (activo) { %>
-                                <button type="button" class="btn-chico btn-peligro" data-accion="baja" data-id="<%= producto.id %>" data-nombre="<%= producto.name %>">Eliminar</button>
-                            <% } else { %>
-                                <button type="button" class="btn-chico" data-accion="activar" data-id="<%= producto.id %>" data-nombre="<%= producto.name %>">Activar</button>
-                            <% } %>
+                            <button type="button" class="btn-chico btn-peligro" data-accion="baja" data-id="<%= producto.id %>" data-nombre="<%= producto.name %>">Eliminar</button>
                         </div>
 
                     </div>
@@ -53,7 +46,6 @@
         <% }) %>
     </main>
 
-    <!-- Modal de confirmacion para baja / activacion -->
     <div class="modal-overlay" id="modalConfirmar">
         <div class="modal-caja">
             <h3 id="modalTitulo">Confirmar</h3>
